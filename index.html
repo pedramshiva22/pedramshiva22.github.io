@@ -1,42 +1,157 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <title>تست خودشناسی</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تست خودشناسی</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Vazirmatn", sans-serif;
+      background: linear-gradient(to right top, #a1c4fd, #c2e9fb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      direction: rtl;
+    }
+
+    .glass-container {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 600px;
+      width: 90%;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    input[type="radio"], textarea {
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .btn {
+      background: #ffffff22;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+      background: #ffffff44;
+      transform: translateY(-2px);
+    }
+
+    .result {
+      white-space: pre-line;
+      margin-top: 20px;
+      color: #fff;
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
+  <div class="glass-container">
+    <h1>تست خودشناسی</h1>
     <form id="testForm">
-        <h1>تست خودشناسی</h1>
+      <label>1. چه احساسی نسبت به خود واقعی‌ت داری؟</label>
+      <input type="radio" name="q1" value="خیلی خوب"> خیلی خوب<br>
+      <input type="radio" name="q1" value="کمی مبهم"> کمی مبهم<br>
+      <input type="radio" name="q1" value="ناآشنا"> ناآشنا<br>
+      <input type="radio" name="q1" value="نمی‌دونم"> نمی‌دونم<br>
 
-        <label>1. چقدر احساس می‌کنید در زندگی از نقاب استفاده می‌کنید؟</label><br>
-        <input type="radio" name="q1" value="زیاد"> زیاد<br>
-        <input type="radio" name="q1" value="متوسط"> متوسط<br>
-        <input type="radio" name="q1" value="کم"> کم<br><br>
+      <label>2. در چه موقعیت‌هایی نقاب می‌زنی؟</label>
+      <input type="radio" name="q2" value="جمع خانوادگی"> جمع خانوادگی<br>
+      <input type="radio" name="q2" value="محل کار"> محل کار<br>
+      <input type="radio" name="q2" value="رابطه عاطفی"> رابطه عاطفی<br>
+      <input type="radio" name="q2" value="همه موارد بالا"> همه موارد بالا<br>
 
-        <label>2. این نقاب‌ها بیشتر چه ویژگی‌هایی دارند؟</label><br>
-        <input type="radio" name="q2" value="مؤدب بودن"> مؤدب بودن<br>
-        <input type="radio" name="q2" value="آرامش"> آرامش<br>
-        <input type="radio" name="q2" value="سایر"> سایر<br><br>
+      <label>3. مهم‌ترین نقابی که استفاده می‌کنی چیه؟</label>
+      <textarea name="q3" rows="3"></textarea>
 
-        <label>3. آیا تا به حال به خاطر این نقاب‌ها احساس محدودیت کردید؟</label><br>
-        <textarea name="q3" rows="4" cols="50" placeholder="پاسخ خود را بنویسید..."></textarea><br><br>
+      <label>4. آخرین باری که خودت رو سانسور کردی؟ چرا؟</label>
+      <textarea name="q4" rows="3"></textarea>
 
-        <button type="button" onclick="submitForm()">ارسال</button>
+      <label>5. پیش کی خودت هستی؟ چرا؟</label>
+      <textarea name="q5" rows="3"></textarea>
+
+      <label>6. کدوم نقاب رو می‌خوای برداری؟ چرا؟</label>
+      <textarea name="q6" rows="3"></textarea>
+
+      <label>7. اگه خودت باشی چه تغییری ایجاد می‌شه؟</label>
+      <input type="radio" name="q7" value="صمیمیت بیشتر"> صمیمیت بیشتر<br>
+      <input type="radio" name="q7" value="تعارض و تنش"> تعارض و تنش<br>
+      <input type="radio" name="q7" value="بی‌تفاوتی دیگران"> بی‌تفاوتی دیگران<br>
+      <input type="radio" name="q7" value="نمی‌دونم"> نمی‌دونم<br>
+
+      <label>8. حاضر به چه ریسکی برای خودت بودنی؟</label>
+      <textarea name="q8" rows="3"></textarea>
+
+      <button type="button" class="btn" onclick="submitForm()">ارسال</button>
     </form>
 
-    <script>
-        function submitForm() {
-            let result = "نتایج شما: \n";
-            let q1 = document.querySelector('input[name="q1"]:checked').value;
-            let q2 = document.querySelector('input[name="q2"]:checked').value;
-            let q3 = document.querySelector('textarea[name="q3"]').value;
+    <div class="result" id="resultBox" style="display: none;"></div>
+  </div>
 
-            result += `سؤال 1: ${q1}\n`;
-            result += `سؤال 2: ${q2}\n`;
-            result += `سؤال 3: ${q3}\n`;
+  <script>
+    function submitForm() {
+      let form = document.getElementById("testForm");
+      let resultBox = document.getElementById("resultBox");
+      let resultText = "";
 
-            alert(result);
+      for (let i = 1; i <= 8; i++) {
+        let name = "q" + i;
+        let field = form[name];
+        let value = "";
+
+        if (field.type === "textarea" || field.length === undefined) {
+          value = field.value;
+        } else {
+          for (let radio of field) {
+            if (radio.checked) {
+              value = radio.value;
+              break;
+            }
+          }
         }
-    </script>
+
+        resultText += `سؤال ${i}: ${value}\n`;
+      }
+
+      resultBox.style.display = "block";
+      resultBox.innerText = resultText;
+    }
+  </script>
 </body>
 </html>
