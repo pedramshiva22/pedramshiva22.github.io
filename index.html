@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>تست خودشناسی</title>
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
 
     body {
       margin: 0;
+      padding: 0;
       font-family: "Vazirmatn", sans-serif;
-      background: linear-gradient(45deg, 
-        #000f8f, #46129f, #6e17ae, 
-        #941dbc, #b825c8, #db2ed4, #ff39de);
-      background-size: 400% 400%;
-      animation: swirl 10s linear infinite;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       direction: rtl;
+      overflow-x: hidden;
+      background: linear-gradient(270deg, #ffcc00, #00ffff, #ff39de, #000f8f, #ffa500, #00bfff, #b825c8);
+      background-size: 1400% 1400%;
+      animation: rainbowFlow 18s ease infinite;
     }
 
-    @keyframes swirl {
+    @keyframes rainbowFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
@@ -31,7 +31,7 @@
     .popup-overlay {
       position: fixed;
       top: 0; right: 0; bottom: 0; left: 0;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       z-index: 9999;
@@ -55,7 +55,7 @@
     .popup-logo span {
       font-family: Arial, sans-serif;
       color: white;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
       text-transform: uppercase;
       text-align: center;
@@ -70,184 +70,220 @@
       font-size: 14px;
     }
 
-    .glass-container {
-      display: none;
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 20px;
-      border: 2px solid yellow;
-      padding: 40px;
-      max-width: 800px;
-      width: 90%;
-      color: white;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-      margin: 60px;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    label {
-      display: block;
-      margin: 20px 0 10px;
-      font-weight: bold;
-    }
-
-    input[type="radio"] {
-      margin: 0 5px 10px 0;
-    }
-
-    textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      background-color: rgba(255, 255, 255, 0.1);
-      color: white;
-      border: 1px solid yellow;
-      resize: vertical;
-      font-family: inherit;
-    }
-
-    .btn {
-      background: #ffffff22;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      font-size: 15px;
-      margin: 15px 10px 0 0;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-      border: 1px solid yellow;
-    }
-
-    .btn:hover {
-      background: #ffffff44;
-      transform: translateY(-2px);
-    }
-
-    .result {
-      white-space: pre-line;
-      margin-top: 20px;
-      padding: 15px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      border: 1px solid yellow;
+    @media (max-width: 600px) {
+      .popup-logo span {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- پاپ‌آپ کلیکی -->
-  <div class="popup-overlay" id="introPopup" onclick="showForm()">
-    <div class="popup-logo">
-      <span>POWERED BY<br>SAHAR AND PEDRAM</span>
+<!-- پاپ‌آپ کلیکی -->
+<div class="popup-overlay" id="introPopup" onclick="showForm()">
+  <div class="popup-logo">
+    <span>POWERED BY<br>SAHAR AND PEDRAM</span>
+  </div>
+  <div class="click-text">click me</div>
+</div>
+<style>
+  .glass-container {
+    display: none;
+    background: #1c1c1c;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 800px;
+    width: 90%;
+    color: white;
+    box-shadow: inset 5px 5px 10px #111111, inset -5px -5px 10px #2b2b2b;
+    border: 2px solid yellow;
+    margin: 60px;
+    backdrop-filter: blur(12px);
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  label {
+    display: block;
+    margin: 20px 0 10px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 15px;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid yellow;
+    resize: vertical;
+    font-family: inherit;
+    margin-bottom: 20px;
+  }
+
+  .result {
+    white-space: pre-line;
+    margin-top: 30px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    border: 1px solid yellow;
+  }
+
+  .btn {
+    background: #ffffff22;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    margin-top: 20px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid yellow;
+    display: inline-block;
+  }
+
+  .btn:hover {
+    background: #ffffff44;
+    transform: translateY(-2px);
+  }
+</style>
+
+<!-- فرم -->
+<div class="glass-container" id="mainForm">
+  <h1>تست خودشناسی</h1>
+  <form id="testForm">
+
+    <label>1. چه احساسی نسبت به خود واقعی‌ت داری؟</label>
+    <div class="radio-group">
+      <label><input type="radio" name="q1" value="خیلی خوب"> خیلی خوب</label>
+      <label><input type="radio" name="q1" value="کمی مبهم"> کمی مبهم</label>
+      <label><input type="radio" name="q1" value="ناآشنا"> ناآشنا</label>
+      <label><input type="radio" name="q1" value="نمی‌دونم"> نمی‌دونم</label>
     </div>
-    <div class="click-text">click me</div>
-  </div>
 
-  <!-- فرم -->
-  <div class="glass-container" id="mainForm">
-    <h1>تست خودشناسی</h1>
-    <form id="testForm">
-      <label>1. چه احساسی نسبت به خود واقعی‌ت داری؟</label>
-      <input type="radio" name="q1" value="خیلی خوب">خیلی خوب
-      <input type="radio" name="q1" value="کمی مبهم">کمی مبهم
-      <input type="radio" name="q1" value="ناآشنا">ناآشنا
-      <input type="radio" name="q1" value="نمی‌دونم">نمی‌دونم
+    <label>2. در چه موقعیت‌هایی نقاب می‌زنی؟</label>
+    <div class="radio-group">
+      <label><input type="radio" name="q2" value="جمع خانوادگی"> جمع خانوادگی</label>
+      <label><input type="radio" name="q2" value="محل کار"> محل کار</label>
+      <label><input type="radio" name="q2" value="رابطه عاطفی"> رابطه عاطفی</label>
+      <label><input type="radio" name="q2" value="همه موارد بالا"> همه موارد بالا</label>
+    </div>
 
-      <label>2. در چه موقعیت‌هایی نقاب می‌زنی؟</label>
-      <input type="radio" name="q2" value="جمع خانوادگی">جمع خانوادگی
-      <input type="radio" name="q2" value="محل کار">محل کار
-      <input type="radio" name="q2" value="رابطه عاطفی">رابطه عاطفی
-      <input type="radio" name="q2" value="همه موارد بالا">همه موارد بالا
+    <label>3. مهم‌ترین نقابی که استفاده می‌کنی چیه؟</label>
+    <textarea name="q3" rows="3"></textarea>
 
-      <label>3. مهم‌ترین نقابی که استفاده می‌کنی چیه؟</label>
-      <textarea name="q3" rows="3"></textarea>
+    <label>4. آخرین باری که خودت رو سانسور کردی؟ چرا؟</label>
+    <textarea name="q4" rows="3"></textarea>
 
-      <label>4. آخرین باری که خودت رو سانسور کردی؟ چرا؟</label>
-      <textarea name="q4" rows="3"></textarea>
+    <label>5. پیش کی خودت هستی؟ چرا؟</label>
+    <textarea name="q5" rows="3"></textarea>
 
-      <label>5. پیش کی خودت هستی؟ چرا؟</label>
-      <textarea name="q5" rows="3"></textarea>
+    <label>6. کدوم نقاب رو می‌خوای برداری؟ چرا؟</label>
+    <textarea name="q6" rows="3"></textarea>
 
-      <label>6. کدوم نقاب رو می‌خوای برداری؟ چرا؟</label>
-      <textarea name="q6" rows="3"></textarea>
+    <label>7. اگه خودت باشی چه تغییری ایجاد می‌شه؟</label>
+    <div class="radio-group">
+      <label><input type="radio" name="q7" value="صمیمیت بیشتر"> صمیمیت بیشتر</label>
+      <label><input type="radio" name="q7" value="تعارض و تنش"> تعارض و تنش</label>
+      <label><input type="radio" name="q7" value="بی‌تفاوتی دیگران"> بی‌تفاوتی دیگران</label>
+      <label><input type="radio" name="q7" value="نمی‌دونم"> نمی‌دونم</label>
+    </div>
 
-      <label>7. اگه خودت باشی چه تغییری ایجاد می‌شه؟</label>
-      <input type="radio" name="q7" value="صمیمیت بیشتر">صمیمیت بیشتر
-      <input type="radio" name="q7" value="تعارض و تنش">تعارض و تنش
-      <input type="radio" name="q7" value="بی‌تفاوتی دیگران">بی‌تفاوتی دیگران
-      <input type="radio" name="q7" value="نمی‌دونم">نمی‌دونم
+    <label>8. حاضر به چه ریسکی برای خودت بودنی؟</label>
+    <textarea name="q8" rows="3"></textarea>
 
-      <label>8. حاضر به چه ریسکی برای خودت بودنی؟</label>
-      <textarea name="q8" rows="3"></textarea>
-
-      <div>
-        <button type="button" class="btn" onclick="submitForm()">نمایش نتیجه</button>
-        <button type="button" class="btn" onclick="copyToClipboard()">کپی نتیجه</button>
-        <button type="button" class="btn" onclick="sendEmail()">ارسال به ایمیل</button>
-      </div>
-    </form>
     <div class="result" id="resultBox" style="display: none;"></div>
-  </div>
 
-  <script>
-    function showForm() {
-      document.getElementById("introPopup").style.display = "none";
-      document.getElementById("mainForm").style.display = "block";
-    }
+    <div id="actionButtons" style="display: none;">
+      <button type="button" class="btn" onclick="copyToClipboard()">کپی نتیجه</button>
+    </div>
+  </form>
+</div>
+<script>
+  // وقتی روی صفحه کلیک شد، پاپ‌آپ حذف و فرم نمایان شود
+  function showForm() {
+    document.getElementById("introPopup").style.display = "none";
+    document.getElementById("mainForm").style.display = "block";
+  }
 
-    function submitForm() {
-      let form = document.getElementById("testForm");
-      let resultBox = document.getElementById("resultBox");
-      let resultText = "";
+  // تولید نتیجه و نمایش در resultBox
+  function submitForm() {
+    let form = document.getElementById("testForm");
+    let resultBox = document.getElementById("resultBox");
+    let actionButtons = document.getElementById("actionButtons");
+    let resultText = "";
 
-      for (let i = 1; i <= 8; i++) {
-        let name = "q" + i;
-        let field = form[name];
-        let value = "";
+    for (let i = 1; i <= 8; i++) {
+      let name = "q" + i;
+      let field = form[name];
+      let value = "";
 
-        if (!field) continue;
+      if (!field) continue;
 
-        if (field.type === "textarea" || field.length === undefined) {
-          value = field.value;
-        } else {
-          for (let radio of field) {
-            if (radio.checked) {
-              value = radio.value;
-              break;
-            }
+      if (field.type === "textarea" || field.length === undefined) {
+        value = field.value.trim();
+      } else {
+        for (let radio of field) {
+          if (radio.checked) {
+            value = radio.value;
+            break;
           }
         }
-
-        resultText += `سؤال ${i}: ${value}\n`;
       }
 
+      resultText += `سؤال ${i}: ${value}\n`;
+    }
+
+    if (resultText.trim() !== "") {
       resultBox.style.display = "block";
       resultBox.innerText = resultText;
+      actionButtons.style.display = "block";
+    } else {
+      alert("لطفاً به تمام سؤال‌ها پاسخ دهید.");
+    }
+  }
+
+  // کپی نتیجه به کلیپ‌بورد
+  function copyToClipboard() {
+    const resultText = document.getElementById("resultBox").innerText;
+    if (!resultText) {
+      alert("لطفاً ابتدا نتیجه را تولید کنید.");
+      return;
     }
 
-    function copyToClipboard() {
-      const resultText = document.getElementById("resultBox").innerText;
-      if (!resultText) return alert("لطفاً ابتدا نتیجه را تولید کنید.");
-      navigator.clipboard.writeText(resultText).then(() => {
-        alert("نتیجه با موفقیت کپی شد!");
-      });
-    }
+    navigator.clipboard.writeText(resultText).then(() => {
+      alert("نتیجه با موفقیت کپی شد!");
+    });
+  }
+</script>
 
-    function sendEmail() {
-      const resultText = document.getElementById("resultBox").innerText;
-      if (!resultText) return alert("لطفاً ابتدا نتیجه را تولید کنید.");
-      const email = prompt("ایمیل خود را وارد کنید:");
-      if (!email) return;
-      const subject = encodeURIComponent("نتیجه تست خودشناسی");
-      const body = encodeURIComponent(resultText);
-      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-    }
-  </script>
+<!-- دکمه نمایش نتیجه جدا از فرم -->
+<script>
+  // افزودن دکمه به پایین فرم
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "btn";
+  button.innerText = "نمایش نتیجه";
+  button.onclick = submitForm;
+
+  window.addEventListener("load", () => {
+    const container = document.getElementById("actionButtons");
+    container.insertAdjacentElement("beforebegin", button);
+  });
+</script>
+
 </body>
 </html>
