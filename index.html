@@ -6,12 +6,13 @@
   <title>تست خودشناسی</title>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap");
+
     body {
       margin: 0;
       font-family: "Vazirmatn", sans-serif;
-      background: linear-gradient(270deg, #000000, #ff00ff, #ff1493, #ffbf00, #7df9ff, #6200ea, #000000);
-      background-size: 400% 400%;
-      animation: gradientBG 20s ease infinite;
+      background: radial-gradient(circle at center, #ff00ff, #00ffff, #ffbf00, #000000);
+      background-size: 600% 600%;
+      animation: swirl 30s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,18 +20,169 @@
       direction: rtl;
     }
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes swirl {
+      0% { background-position: 0% 0%; }
+      25% { background-position: 100% 0%; }
+      50% { background-position: 100% 100%; }
+      75% { background-position: 0% 100%; }
+      100% { background-position: 0% 0%; }
     }
 
-    .glass-container {
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      backdrop-filter: blur(9px);
-      -webkit-backdrop-filter: blur(9px);
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 600px;
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-logo {
+      width: 150px;
+      height: 150px;
+      background-color: #3cb371;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+    }
+
+    .popup-logo span {
+      font-family: Arial, sans-serif;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.2;
+      text-transform: uppercase;
+      display: block;
       width: 90%;
+      height: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- پاپ‌آپ اولیه -->
+  <div class="popup-overlay" id="introPopup">
+    <div class="popup-logo">
+      <span>POWERED BY<br>SAHAR AND PEDRAM</span>
+    </div>
+  </div>
+  <!-- فرم شیشه‌ای -->
+  <div class="glass-container" style="display: none;" id="mainForm">
+    <h1>تست خودشناسی</h1>
+    <form id="testForm">
+      <label>1. چه احساسی نسبت به خود واقعی‌ت داری؟</label>
+      <input type="radio" name="q1" value="خیلی خوب"> خیلی خوب<br>
+      <input type="radio" name="q1" value="کمی مبهم"> کمی مبهم<br>
+      <input type="radio" name="q1" value="ناآشنا"> ناآشنا<br>
+      <input type="radio" name="q1" value="نمی‌دونم"> نمی‌دونم<br>
+
+      <label>2. در چه موقعیت‌هایی نقاب می‌زنی؟</label>
+      <input type="radio" name="q2" value="جمع خانوادگی"> جمع خانوادگی<br>
+      <input type="radio" name="q2" value="محل کار"> محل کار<br>
+      <input type="radio" name="q2" value="رابطه عاطفی"> رابطه عاطفی<br>
+      <input type="radio" name="q2" value="همه موارد بالا"> همه موارد بالا<br>
+
+      <label>3. مهم‌ترین نقابی که استفاده می‌کنی چیه؟</label>
+      <textarea name="q3" rows="3"></textarea>
+
+      <label>4. آخرین باری که خودت رو سانسور کردی؟ چرا؟</label>
+      <textarea name="q4" rows="3"></textarea>
+
+      <label>5. پیش کی خودت هستی؟ چرا؟</label>
+      <textarea name="q5" rows="3"></textarea>
+
+      <label>6. کدوم نقاب رو می‌خوای برداری؟ چرا؟</label>
+      <textarea name="q6" rows="3"></textarea>
+
+      <label>7. اگه خودت باشی چه تغییری ایجاد می‌شه؟</label>
+      <input type="radio" name="q7" value="صمیمیت بیشتر"> صمیمیت بیشتر<br>
+      <input type="radio" name="q7" value="تعارض و تنش"> تعارض و تنش<br>
+      <input type="radio" name="q7" value="بی‌تفاوتی دیگران"> بی‌تفاوتی دیگران<br>
+      <input type="radio" name="q7" value="نمی‌دونم"> نمی‌دونم<br>
+
+      <label>8. حاضر به چه ریسکی برای خودت بودنی؟</label>
+      <textarea name="q8" rows="3"></textarea>
+
+      <button type="button" class="btn" onclick="submitForm()">نمایش نتیجه</button>
+      <button type="button" class="btn" onclick="copyToClipboard()">کپی نتیجه</button>
+      <button type="button" class="btn" onclick="sendEmail()">ارسال به ایمیل</button>
+    </form>
+
+    <div class="result" id="resultBox" style="display: none; margin-top: 20px;"></div>
+  </div>
+  <script>
+    // نمایش فرم بعد از پاپ‌آپ
+    window.onload = function () {
+      setTimeout(() => {
+        document.getElementById("introPopup").style.display = "none";
+        document.getElementById("mainForm").style.display = "block";
+      }, 2500); // زمان پاپ‌آپ (۲.۵ ثانیه)
+    };
+
+    // تولید نتیجه و نمایش در div
+    function submitForm() {
+      let form = document.getElementById("testForm");
+      let resultBox = document.getElementById("resultBox");
+      let resultText = "";
+
+      for (let i = 1; i <= 8; i++) {
+        let name = "q" + i;
+        let field = form[name];
+        let value = "";
+
+        if (!field) continue;
+
+        if (field.type === "textarea" || field.length === undefined) {
+          value = field.value;
+        } else {
+          for (let radio of field) {
+            if (radio.checked) {
+              value = radio.value;
+              break;
+            }
+          }
+        }
+
+        resultText += `سؤال ${i}: ${value}\n`;
+      }
+
+      resultBox.style.display = "block";
+      resultBox.innerText = resultText;
+    }
+
+    // کپی به کلیپ‌بورد
+    function copyToClipboard() {
+      const resultText = document.getElementById("resultBox").innerText;
+      if (!resultText) return alert("لطفاً ابتدا نتیجه را تولید کنید.");
+      navigator.clipboard.writeText(resultText).then(() => {
+        alert("نتیجه با موفقیت کپی شد!");
+      });
+    }
+
+    // ارسال به ایمیل (باز کردن mail client کاربر)
+    function sendEmail() {
+      const resultText = document.getElementById("resultBox").innerText;
+      if (!resultText) return alert("لطفاً ابتدا نتیجه را تولید کنید.");
+      const email = prompt("ایمیل خود را وارد کنید:");
+      if (!email) return;
+      const subject = encodeURIComponent("نتیجه تست خودشناسی");
+      const body = encodeURIComponent(resultText);
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    }
+  </script>
+
+</body>
+</html>
