@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>تست خودشناسی</title>
+</head>
+<body>
+    <form id="testForm">
+        <h1>تست خودشناسی</h1>
+
+        <label>1. چقدر احساس می‌کنید در زندگی از نقاب استفاده می‌کنید؟</label><br>
+        <input type="radio" name="q1" value="زیاد"> زیاد<br>
+        <input type="radio" name="q1" value="متوسط"> متوسط<br>
+        <input type="radio" name="q1" value="کم"> کم<br><br>
+
+        <label>2. این نقاب‌ها بیشتر چه ویژگی‌هایی دارند؟</label><br>
+        <input type="radio" name="q2" value="مؤدب بودن"> مؤدب بودن<br>
+        <input type="radio" name="q2" value="آرامش"> آرامش<br>
+        <input type="radio" name="q2" value="سایر"> سایر<br><br>
+
+        <label>3. آیا تا به حال به خاطر این نقاب‌ها احساس محدودیت کردید؟</label><br>
+        <textarea name="q3" rows="4" cols="50" placeholder="پاسخ خود را بنویسید..."></textarea><br><br>
+
+        <button type="button" onclick="submitForm()">ارسال</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            let result = "نتایج شما: \n";
+            let q1 = document.querySelector('input[name="q1"]:checked').value;
+            let q2 = document.querySelector('input[name="q2"]:checked').value;
+            let q3 = document.querySelector('textarea[name="q3"]').value;
+
+            result += `سؤال 1: ${q1}\n`;
+            result += `سؤال 2: ${q2}\n`;
+            result += `سؤال 3: ${q3}\n`;
+
+            alert(result);
+        }
+    </script>
+</body>
+</html>
