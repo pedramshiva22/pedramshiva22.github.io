@@ -5,79 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>تست خودشناسی</title>
   <style>
+    @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Font/Vazirmatn-font-face.css');
+
     body {
       margin: 0;
       font-family: "Vazirmatn", sans-serif;
-      background: linear-gradient(to right top, #a1c4fd, #c2e9fb);
+      background: linear-gradient(45deg, #2c3e50, #444);
+      animation: gradientBG 20s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       direction: rtl;
+      overflow-x: hidden;
+      padding: 40px 10px;
+    }
+
+    @keyframes gradientBG {
+      0% { background: linear-gradient(45deg, #2c3e50, #444); }
+      25% { background: linear-gradient(45deg, #444, #6a0572); }
+      50% { background: linear-gradient(45deg, #6a0572, #8e44ad); }
+      75% { background: linear-gradient(45deg, #8e44ad, #c39bd3); }
+      100% { background: linear-gradient(45deg, #c39bd3, #2c3e50); }
     }
 
     .glass-container {
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
       backdrop-filter: blur(9px);
       -webkit-backdrop-filter: blur(9px);
       border-radius: 20px;
-      padding: 30px;
-      max-width: 600px;
-      width: 90%;
+      padding: 30px 20px;
+      max-width: 650px;
+      width: 100%;
       color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     h1 {
       text-align: center;
-      color: #ffffff;
+      color: #fff;
       margin-bottom: 30px;
     }
 
     label {
       display: block;
-      margin: 15px 0 5px;
+      margin: 15px 0 8px;
       font-weight: bold;
     }
 
-    input[type="radio"], textarea {
-      margin-bottom: 15px;
+    input[type="radio"] {
+      margin-left: 10px;
     }
 
     textarea {
       width: 100%;
       padding: 10px;
       border-radius: 10px;
-      border: none;
+      border: 1px solid #ccc;
+      background-color: #fefefe;
       resize: vertical;
       font-family: inherit;
+      margin-top: 5px;
     }
 
     .btn {
       background: #ffffff22;
-      padding: 10px 25px;
+      padding: 12px 30px;
       border: none;
       border-radius: 10px;
       font-size: 16px;
-      margin-top: 20px;
+      margin-top: 25px;
       color: white;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
     }
 
     .btn:hover {
-      background: #ffffff44;
-      transform: translateY(-2px);
+      background: #ffffff55;
+      transform: scale(1.05);
     }
 
     .result {
       white-space: pre-line;
-      margin-top: 20px;
-      color: #fff;
-      background: rgba(255,255,255,0.1);
-      padding: 10px;
+      margin-top: 30px;
+      background: rgba(255,255,255,0.08);
+      padding: 15px;
       border-radius: 10px;
+      font-size: 15px;
     }
   </style>
 </head>
@@ -86,37 +104,37 @@
     <h1>تست خودشناسی</h1>
     <form id="testForm">
       <label>1. چه احساسی نسبت به خود واقعی‌ت داری؟</label>
-      <input type="radio" name="q1" value="خیلی خوب"> خیلی خوب<br>
-      <input type="radio" name="q1" value="کمی مبهم"> کمی مبهم<br>
-      <input type="radio" name="q1" value="ناآشنا"> ناآشنا<br>
-      <input type="radio" name="q1" value="نمی‌دونم"> نمی‌دونم<br>
+      <input type="radio" name="q1" value="خیلی خوب"> خیلی خوب
+      <input type="radio" name="q1" value="کمی مبهم"> کمی مبهم
+      <input type="radio" name="q1" value="ناآشنا"> ناآشنا
+      <input type="radio" name="q1" value="نمی‌دونم"> نمی‌دونم
 
       <label>2. در چه موقعیت‌هایی نقاب می‌زنی؟</label>
-      <input type="radio" name="q2" value="جمع خانوادگی"> جمع خانوادگی<br>
-      <input type="radio" name="q2" value="محل کار"> محل کار<br>
-      <input type="radio" name="q2" value="رابطه عاطفی"> رابطه عاطفی<br>
-      <input type="radio" name="q2" value="همه موارد بالا"> همه موارد بالا<br>
+      <input type="radio" name="q2" value="جمع خانوادگی"> جمع خانوادگی
+      <input type="radio" name="q2" value="محل کار"> محل کار
+      <input type="radio" name="q2" value="رابطه عاطفی"> رابطه عاطفی
+      <input type="radio" name="q2" value="همه موارد بالا"> همه موارد بالا
 
       <label>3. مهم‌ترین نقابی که استفاده می‌کنی چیه؟</label>
-      <textarea name="q3" rows="3"></textarea>
+      <textarea name="q3" rows="2"></textarea>
 
       <label>4. آخرین باری که خودت رو سانسور کردی؟ چرا؟</label>
-      <textarea name="q4" rows="3"></textarea>
+      <textarea name="q4" rows="2"></textarea>
 
       <label>5. پیش کی خودت هستی؟ چرا؟</label>
-      <textarea name="q5" rows="3"></textarea>
+      <textarea name="q5" rows="2"></textarea>
 
       <label>6. کدوم نقاب رو می‌خوای برداری؟ چرا؟</label>
-      <textarea name="q6" rows="3"></textarea>
+      <textarea name="q6" rows="2"></textarea>
 
       <label>7. اگه خودت باشی چه تغییری ایجاد می‌شه؟</label>
-      <input type="radio" name="q7" value="صمیمیت بیشتر"> صمیمیت بیشتر<br>
-      <input type="radio" name="q7" value="تعارض و تنش"> تعارض و تنش<br>
-      <input type="radio" name="q7" value="بی‌تفاوتی دیگران"> بی‌تفاوتی دیگران<br>
-      <input type="radio" name="q7" value="نمی‌دونم"> نمی‌دونم<br>
+      <input type="radio" name="q7" value="صمیمیت بیشتر"> صمیمیت بیشتر
+      <input type="radio" name="q7" value="تعارض و تنش"> تعارض و تنش
+      <input type="radio" name="q7" value="بی‌تفاوتی دیگران"> بی‌تفاوتی دیگران
+      <input type="radio" name="q7" value="نمی‌دونم"> نمی‌دونم
 
       <label>8. حاضر به چه ریسکی برای خودت بودنی؟</label>
-      <textarea name="q8" rows="3"></textarea>
+      <textarea name="q8" rows="2"></textarea>
 
       <button type="button" class="btn" onclick="submitForm()">ارسال</button>
     </form>
