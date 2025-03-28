@@ -10,30 +10,27 @@
     body {
       margin: 0;
       font-family: "Vazirmatn", sans-serif;
-      background: radial-gradient(circle at center, #ff00ff, #00ffff, #ffbf00, #000000);
-      background-size: 600% 600%;
-      animation: swirl 30s ease infinite;
+      background: linear-gradient(45deg, 
+        #000f8f, #46129f, #6e17ae, 
+        #941dbc, #b825c8, #db2ed4, #ff39de);
+      background-size: 400% 400%;
+      animation: swirl 10s linear infinite;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       direction: rtl;
     }
 
     @keyframes swirl {
-      0% { background-position: 0% 0%; }
-      25% { background-position: 100% 0%; }
-      50% { background-position: 100% 100%; }
-      75% { background-position: 0% 100%; }
-      100% { background-position: 0% 0%; }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .popup-overlay {
       position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      top: 0; right: 0; bottom: 0; left: 0;
       background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -41,6 +38,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
+      cursor: pointer;
     }
 
     .popup-logo {
@@ -56,44 +55,115 @@
     .popup-logo span {
       font-family: Arial, sans-serif;
       color: white;
-      font-size: 14px;
+      font-size: 20px;
       font-weight: bold;
+      text-transform: uppercase;
       text-align: center;
       line-height: 1.2;
-      text-transform: uppercase;
-      display: block;
+    }
+
+    .click-text {
+      margin-top: 15px;
+      color: black;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .glass-container {
+      display: none;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 2px solid yellow;
+      padding: 40px;
+      max-width: 800px;
       width: 90%;
-      height: 90%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      color: white;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      margin: 60px;
+    }
+
+    h1 {
       text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin: 20px 0 10px;
+      font-weight: bold;
+    }
+
+    input[type="radio"] {
+      margin: 0 5px 10px 0;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid yellow;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .btn {
+      background: #ffffff22;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      margin: 15px 10px 0 0;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      border: 1px solid yellow;
+    }
+
+    .btn:hover {
+      background: #ffffff44;
+      transform: translateY(-2px);
+    }
+
+    .result {
+      white-space: pre-line;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      border: 1px solid yellow;
     }
   </style>
 </head>
 <body>
 
-  <!-- پاپ‌آپ اولیه -->
-  <div class="popup-overlay" id="introPopup">
+  <!-- پاپ‌آپ کلیکی -->
+  <div class="popup-overlay" id="introPopup" onclick="showForm()">
     <div class="popup-logo">
       <span>POWERED BY<br>SAHAR AND PEDRAM</span>
     </div>
+    <div class="click-text">click me</div>
   </div>
-  <!-- فرم شیشه‌ای -->
-  <div class="glass-container" style="display: none;" id="mainForm">
+
+  <!-- فرم -->
+  <div class="glass-container" id="mainForm">
     <h1>تست خودشناسی</h1>
     <form id="testForm">
       <label>1. چه احساسی نسبت به خود واقعی‌ت داری؟</label>
-      <input type="radio" name="q1" value="خیلی خوب"> خیلی خوب<br>
-      <input type="radio" name="q1" value="کمی مبهم"> کمی مبهم<br>
-      <input type="radio" name="q1" value="ناآشنا"> ناآشنا<br>
-      <input type="radio" name="q1" value="نمی‌دونم"> نمی‌دونم<br>
+      <input type="radio" name="q1" value="خیلی خوب">خیلی خوب
+      <input type="radio" name="q1" value="کمی مبهم">کمی مبهم
+      <input type="radio" name="q1" value="ناآشنا">ناآشنا
+      <input type="radio" name="q1" value="نمی‌دونم">نمی‌دونم
 
       <label>2. در چه موقعیت‌هایی نقاب می‌زنی؟</label>
-      <input type="radio" name="q2" value="جمع خانوادگی"> جمع خانوادگی<br>
-      <input type="radio" name="q2" value="محل کار"> محل کار<br>
-      <input type="radio" name="q2" value="رابطه عاطفی"> رابطه عاطفی<br>
-      <input type="radio" name="q2" value="همه موارد بالا"> همه موارد بالا<br>
+      <input type="radio" name="q2" value="جمع خانوادگی">جمع خانوادگی
+      <input type="radio" name="q2" value="محل کار">محل کار
+      <input type="radio" name="q2" value="رابطه عاطفی">رابطه عاطفی
+      <input type="radio" name="q2" value="همه موارد بالا">همه موارد بالا
 
       <label>3. مهم‌ترین نقابی که استفاده می‌کنی چیه؟</label>
       <textarea name="q3" rows="3"></textarea>
@@ -108,31 +178,29 @@
       <textarea name="q6" rows="3"></textarea>
 
       <label>7. اگه خودت باشی چه تغییری ایجاد می‌شه؟</label>
-      <input type="radio" name="q7" value="صمیمیت بیشتر"> صمیمیت بیشتر<br>
-      <input type="radio" name="q7" value="تعارض و تنش"> تعارض و تنش<br>
-      <input type="radio" name="q7" value="بی‌تفاوتی دیگران"> بی‌تفاوتی دیگران<br>
-      <input type="radio" name="q7" value="نمی‌دونم"> نمی‌دونم<br>
+      <input type="radio" name="q7" value="صمیمیت بیشتر">صمیمیت بیشتر
+      <input type="radio" name="q7" value="تعارض و تنش">تعارض و تنش
+      <input type="radio" name="q7" value="بی‌تفاوتی دیگران">بی‌تفاوتی دیگران
+      <input type="radio" name="q7" value="نمی‌دونم">نمی‌دونم
 
       <label>8. حاضر به چه ریسکی برای خودت بودنی؟</label>
       <textarea name="q8" rows="3"></textarea>
 
-      <button type="button" class="btn" onclick="submitForm()">نمایش نتیجه</button>
-      <button type="button" class="btn" onclick="copyToClipboard()">کپی نتیجه</button>
-      <button type="button" class="btn" onclick="sendEmail()">ارسال به ایمیل</button>
+      <div>
+        <button type="button" class="btn" onclick="submitForm()">نمایش نتیجه</button>
+        <button type="button" class="btn" onclick="copyToClipboard()">کپی نتیجه</button>
+        <button type="button" class="btn" onclick="sendEmail()">ارسال به ایمیل</button>
+      </div>
     </form>
-
-    <div class="result" id="resultBox" style="display: none; margin-top: 20px;"></div>
+    <div class="result" id="resultBox" style="display: none;"></div>
   </div>
-  <script>
-    // نمایش فرم بعد از پاپ‌آپ
-    window.onload = function () {
-      setTimeout(() => {
-        document.getElementById("introPopup").style.display = "none";
-        document.getElementById("mainForm").style.display = "block";
-      }, 2500); // زمان پاپ‌آپ (۲.۵ ثانیه)
-    };
 
-    // تولید نتیجه و نمایش در div
+  <script>
+    function showForm() {
+      document.getElementById("introPopup").style.display = "none";
+      document.getElementById("mainForm").style.display = "block";
+    }
+
     function submitForm() {
       let form = document.getElementById("testForm");
       let resultBox = document.getElementById("resultBox");
@@ -163,7 +231,6 @@
       resultBox.innerText = resultText;
     }
 
-    // کپی به کلیپ‌بورد
     function copyToClipboard() {
       const resultText = document.getElementById("resultBox").innerText;
       if (!resultText) return alert("لطفاً ابتدا نتیجه را تولید کنید.");
@@ -172,7 +239,6 @@
       });
     }
 
-    // ارسال به ایمیل (باز کردن mail client کاربر)
     function sendEmail() {
       const resultText = document.getElementById("resultBox").innerText;
       if (!resultText) return alert("لطفاً ابتدا نتیجه را تولید کنید.");
@@ -183,6 +249,5 @@
       window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
     }
   </script>
-
 </body>
 </html>
