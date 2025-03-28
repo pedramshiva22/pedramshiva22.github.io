@@ -3,287 +3,269 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تست خودشناسی</title>
+  <title>تست نقاب - نسخه هوشمند</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
-
     body {
       margin: 0;
       padding: 0;
-      font-family: "Vazirmatn", sans-serif;
-      min-height: 100vh;
+      font-family: 'Vazirmatn', sans-serif;
+      direction: rtl;
+      background: linear-gradient(270deg, #ffcc00, #00ffff, #ff39de, #000f8f, #ffa500, #00bfff, #b825c8);
+      background-size: 1400% 1400%;
+      animation: rainbowFlow 20s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
-      direction: rtl;
-      overflow-x: hidden;
-      background: linear-gradient(270deg, #ffcc00, #00ffff, #ff39de, #000f8f, #ffa500, #00bfff, #b825c8);
-      background-size: 1400% 1400%;
-      animation: rainbowFlow 18s ease infinite;
+      min-height: 100vh;
     }
-
     @keyframes rainbowFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
     .popup-overlay {
       position: fixed;
-      top: 0; right: 0; bottom: 0; left: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 9999;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      cursor: pointer;
+      z-index: 9999;
     }
-
     .popup-logo {
       width: 150px;
       height: 150px;
       background-color: #3cb371;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       border-radius: 10px;
+      padding: 10px;
+      direction: ltr;
+      text-align: left;
     }
-
     .popup-logo span {
       font-family: Arial, sans-serif;
       color: white;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       text-transform: uppercase;
-      text-align: center;
       line-height: 1.2;
     }
-
     .click-text {
-      margin-top: 15px;
+      margin-top: 10px;
       color: black;
       font-weight: bold;
       font-family: Arial, sans-serif;
       font-size: 14px;
     }
-
-    @media (max-width: 600px) {
-      .popup-logo span {
-        font-size: 16px;
-      }
+    .glass-container {
+      display: none;
+      background: rgba(28,28,28,0.5);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 800px;
+      width: 90%;
+      color: white;
+      border: 2px solid yellow;
+      box-shadow: inset 5px 5px 10px #111, inset -5px -5px 10px #2b2b2b;
+      backdrop-filter: blur(12px);
+      margin: 30px;
+    }
+    textarea {
+      width: calc(100% - 40px);
+      margin: 0 auto 20px;
+      display: block;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background-color: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid yellow;
+      resize: vertical;
+      font-family: inherit;
+    }
+    label {
+      display: block;
+      margin: 20px 0 10px;
+      font-weight: bold;
+    }
+    h1 {
+      text-align: right;
+      margin-bottom: 30px;
+      border: 2px solid yellow;
+      display: inline-block;
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+    .btn {
+      background: #ffffff22;
+      color: white;
+      padding: 10px 20px;
+      border: 1px solid yellow;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    .btn:hover {
+      background: #ffffff44;
+    }
+    .result {
+      white-space: pre-line;
+      margin-top: 30px;
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      border: 1px solid yellow;
     }
   </style>
 </head>
 <body>
-
-<!-- پاپ‌آپ کلیکی -->
-<div class="popup-overlay" id="introPopup" onclick="showForm()">
+  <!-- Splash Screen -->
+<div class="popup-overlay" id="splashScreen">
   <div class="popup-logo">
-    <span>POWERED BY<br>SAHAR AND PEDRAM</span>
+    <span>POWERED BY SAHAR AND PEDRAM</span>
   </div>
   <div class="click-text">click me</div>
 </div>
-<style>
-  .glass-container {
-    display: none;
-    background: #1c1c1c;
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 800px;
-    width: 90%;
-    color: white;
-    box-shadow: inset 5px 5px 10px #111111, inset -5px -5px 10px #2b2b2b;
-    border: 2px solid yellow;
-    margin: 60px;
-    backdrop-filter: blur(12px);
-  }
 
-  h1 {
-    text-align: center;
-    margin-bottom: 30px;
-  }
+<!-- Intro Text -->
+<div class="popup-overlay" id="introPopup" style="display: none;">
+  <div style="background-color: rgba(0,0,0,0.7); padding: 30px; border-radius: 15px; max-width: 600px; color: white; text-align: justify;">
+    <p style="font-size: 15px; line-height: 1.8;">
+      این تست بهت کمک می‌کنه تا نقاب‌هایی که در زندگی روزمره استفاده می‌کنی رو بشناسی.
+      با پاسخ دادن به سؤالات، به درک بهتری از دلایل شکل‌گیری این نقاب‌ها و تأثیرشون بر روابط، کار، و حتی رابطه‌ات با خودت می‌رسی.
+      هدف اینه که با این آگاهی، بتونی تعادل سالمی بین نقاب‌هات و خودِ واقعی‌ت برقرار کنی.
+    </p>
+    <div style="text-align: center; margin-top: 25px;">
+      <button class="btn" onclick="startTest()">بزن بریم</button>
+    </div>
+  </div>
+</div>
 
-  label {
-    display: block;
-    margin: 20px 0 10px;
-    font-weight: bold;
-    font-size: 16px;
-  }
-
-  .radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 15px;
-  }
-
-  textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid yellow;
-    resize: vertical;
-    font-family: inherit;
-    margin-bottom: 20px;
-  }
-
-  .result {
-    white-space: pre-line;
-    margin-top: 30px;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    border: 1px solid yellow;
-  }
-
-  .btn {
-    background: #ffffff22;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    margin-top: 20px;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    border: 1px solid yellow;
-    display: inline-block;
-  }
-
-  .btn:hover {
-    background: #ffffff44;
-    transform: translateY(-2px);
-  }
-</style>
-
-<!-- فرم -->
+<!-- Main Form -->
 <div class="glass-container" id="mainForm">
-  <h1>تست خودشناسی</h1>
-  <form id="testForm">
-
-    <label>1. چه احساسی نسبت به خود واقعی‌ت داری؟</label>
-    <div class="radio-group">
-      <label><input type="radio" name="q1" value="خیلی خوب"> خیلی خوب</label>
-      <label><input type="radio" name="q1" value="کمی مبهم"> کمی مبهم</label>
-      <label><input type="radio" name="q1" value="ناآشنا"> ناآشنا</label>
-      <label><input type="radio" name="q1" value="نمی‌دونم"> نمی‌دونم</label>
-    </div>
-
-    <label>2. در چه موقعیت‌هایی نقاب می‌زنی؟</label>
-    <div class="radio-group">
-      <label><input type="radio" name="q2" value="جمع خانوادگی"> جمع خانوادگی</label>
-      <label><input type="radio" name="q2" value="محل کار"> محل کار</label>
-      <label><input type="radio" name="q2" value="رابطه عاطفی"> رابطه عاطفی</label>
-      <label><input type="radio" name="q2" value="همه موارد بالا"> همه موارد بالا</label>
-    </div>
-
-    <label>3. مهم‌ترین نقابی که استفاده می‌کنی چیه؟</label>
-    <textarea name="q3" rows="3"></textarea>
-
-    <label>4. آخرین باری که خودت رو سانسور کردی؟ چرا؟</label>
-    <textarea name="q4" rows="3"></textarea>
-
-    <label>5. پیش کی خودت هستی؟ چرا؟</label>
-    <textarea name="q5" rows="3"></textarea>
-
-    <label>6. کدوم نقاب رو می‌خوای برداری؟ چرا؟</label>
-    <textarea name="q6" rows="3"></textarea>
-
-    <label>7. اگه خودت باشی چه تغییری ایجاد می‌شه؟</label>
-    <div class="radio-group">
-      <label><input type="radio" name="q7" value="صمیمیت بیشتر"> صمیمیت بیشتر</label>
-      <label><input type="radio" name="q7" value="تعارض و تنش"> تعارض و تنش</label>
-      <label><input type="radio" name="q7" value="بی‌تفاوتی دیگران"> بی‌تفاوتی دیگران</label>
-      <label><input type="radio" name="q7" value="نمی‌دونم"> نمی‌دونم</label>
-    </div>
-
-    <label>8. حاضر به چه ریسکی برای خودت بودنی؟</label>
-    <textarea name="q8" rows="3"></textarea>
-
-    <div class="result" id="resultBox" style="display: none;"></div>
-
-    <div id="actionButtons" style="display: none;">
-      <button type="button" class="btn" onclick="copyToClipboard()">کپی نتیجه</button>
-    </div>
-  </form>
+  <h1>تست نقاب</h1>
+  <form id="testForm"></form>
+  <div class="result" id="resultBox" style="display: none;"></div>
+  <div id="actionButtons" style="display: none;">
+    <button type="button" class="btn" onclick="copyToClipboard()">کپی نتیجه</button>
+  </div>
 </div>
 <script>
-  // وقتی روی صفحه کلیک شد، پاپ‌آپ حذف و فرم نمایان شود
-  function showForm() {
-    document.getElementById("introPopup").style.display = "none";
-    document.getElementById("mainForm").style.display = "block";
-  }
+const questions = [
+"۱. چه نقاب‌هایی در تعاملات اجتماعی داری؟ چرا از آن‌ها استفاده می‌کنی؟",
+"۲. چه عواملی باعث می‌شن این نقاب‌ها رو به کار ببری؟",
+"۳. اگر برای مدتی نقابت رو کنار بذاری، دیگران تو رو چطور خواهند دید؟",
+"۴. تصویر بدون نقاب تو کدومه؟ (سه‌گزینه‌ای)",
+"۵. چرا این احساس رو داری؟",
+"۶. چطور می‌تونی تعادل سالمی بین نقاب‌هات و خود واقعیت برقرار کنی؟",
+"۷. چه زمانی متوجه شدی که این نقاب(ها) رو داری؟ آیا رویداد خاصی باعث شکل‌گیریش شد؟",
+"۸. چطور فکر می‌کنی این نقاب(ها) بر روابطت با دیگران تأثیر گذاشته؟",
+"۹. آیا تا حالا سعی کردی این نقاب(ها) رو کنار بزاری؟ چه تجربه‌ای داشتی؟",
+"۱۰. فکر می‌کنی نقاب‌هات بیشتر بهت کمک کردن یا مانع رشد و ارتباطاتت بودن؟ چرا؟"
+];
 
-  // تولید نتیجه و نمایش در resultBox
-  function submitForm() {
-    let form = document.getElementById("testForm");
-    let resultBox = document.getElementById("resultBox");
-    let actionButtons = document.getElementById("actionButtons");
-    let resultText = "";
-
-    for (let i = 1; i <= 8; i++) {
-      let name = "q" + i;
-      let field = form[name];
-      let value = "";
-
-      if (!field) continue;
-
-      if (field.type === "textarea" || field.length === undefined) {
-        value = field.value.trim();
-      } else {
-        for (let radio of field) {
-          if (radio.checked) {
-            value = radio.value;
-            break;
-          }
-        }
-      }
-
-      resultText += `سؤال ${i}: ${value}\n`;
-    }
-
-    if (resultText.trim() !== "") {
-      resultBox.style.display = "block";
-      resultBox.innerText = resultText;
-      actionButtons.style.display = "block";
-    } else {
-      alert("لطفاً به تمام سؤال‌ها پاسخ دهید.");
-    }
-  }
-
-  // کپی نتیجه به کلیپ‌بورد
-  function copyToClipboard() {
-    const resultText = document.getElementById("resultBox").innerText;
-    if (!resultText) {
-      alert("لطفاً ابتدا نتیجه را تولید کنید.");
-      return;
-    }
-
-    navigator.clipboard.writeText(resultText).then(() => {
-      alert("نتیجه با موفقیت کپی شد!");
-    });
-  }
-</script>
-
-<!-- دکمه نمایش نتیجه جدا از فرم -->
-<script>
-  // افزودن دکمه به پایین فرم
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "btn";
-  button.innerText = "نمایش نتیجه";
-  button.onclick = submitForm;
-
-  window.addEventListener("load", () => {
-    const container = document.getElementById("actionButtons");
-    container.insertAdjacentElement("beforebegin", button);
+window.onload = () => {
+  document.getElementById("splashScreen").addEventListener("click", () => {
+    document.getElementById("splashScreen").style.display = "none";
+    document.getElementById("introPopup").style.display = "flex";
   });
-</script>
 
+  const form = document.getElementById("testForm");
+  questions.forEach((q, i) => {
+    const label = document.createElement("label");
+    label.textContent = q;
+    form.appendChild(label);
+    if (i === 3) {
+      const group = document.createElement("div");
+      group.className = "radio-group";
+      ["ارزشمندتر", "واقعی‌تر", "آسیب‌پذیرتر"].forEach(val => {
+        group.innerHTML += `<label><input type="radio" name="q4" value="${val}"> ${val}</label>`;
+      });
+      form.appendChild(group);
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.name = `q${i + 1}`;
+      textarea.rows = 3;
+      form.appendChild(textarea);
+    }
+  });
+
+  const showBtn = document.createElement("button");
+  showBtn.type = "button";
+  showBtn.className = "btn";
+  showBtn.textContent = "نمایش نتیجه";
+  showBtn.onclick = submitForm;
+  document.getElementById("actionButtons").insertAdjacentElement("beforebegin", showBtn);
+};
+
+function startTest() {
+  document.getElementById("introPopup").style.display = "none";
+  document.getElementById("mainForm").style.display = "block";
+}
+
+function generateInsightBlock(title, content) {
+  return `بخش ${title}:\\n\\n${content}\\n\\n`;
+}
+
+function analyzeResponses(text) {
+  const responses = text.toLowerCase();
+  let result = "—— تحلیل نقاب تو ——\\n\\n";
+
+  if (responses.includes("قوی") || responses.includes("کنترل")) {
+    result += generateInsightBlock("۱ - نوع نقاب", "یکی از نقاب‌های اصلی تو، نقاب قوی بودن یا کنترل‌گریه؛ یعنی پشت ظاهر محکم، ترس از آسیب وجود داره.");
+  } else {
+    result += generateInsightBlock("۱ - نوع نقاب", "نقاب‌هایی که استفاده می‌کنی بیشتر برای محافظت از آسیب‌های عاطفی هستن، نه پنهان‌کاری.");
+  }
+
+  if (responses.includes("ترس") || responses.includes("نگرانی") || responses.includes("بی‌اعتمادی")) {
+    result += generateInsightBlock("۲ - ریشه‌های احساسی", "ریشه‌ی بسیاری از نقاب‌هات ترس از نادیده گرفته شدن یا بی‌ارزشیه.");
+  } else {
+    result += generateInsightBlock("۲ - ریشه‌های احساسی", "به‌نظر می‌رسه احساساتی مثل گم‌گشتگی یا تردید درونی باعث استفاده از نقاب شده باشن.");
+  }
+
+  if (responses.includes("فاصله") || responses.includes("تنهایی") || responses.includes("سردی")) {
+    result += generateInsightBlock("۳ - تأثیر بر روابط", "نقاب‌هات باعث شده ارتباطات عمیق برات سخت‌تر بشه، حتی اگر بیرونت صمیمی باشه.");
+  } else {
+    result += generateInsightBlock("۳ - تأثیر بر روابط", "با اینکه از نقاب استفاده می‌کنی، اما تونستی تا حدی ارتباط‌هاتو حفظ کنی.");
+  }
+
+  if (responses.includes("واقعی") || responses.includes("رهایی") || responses.includes("آزاد")) {
+    result += generateInsightBlock("۴ - آگاهی از خود واقعی", "در درونت تمایل زیادی به آزادی از نقاب‌هات وجود داره و این قدم بزرگی برای بازگشت به خودته.");
+  } else {
+    result += generateInsightBlock("۴ - آگاهی از خود واقعی", "شاید هنوز تصویر واضحی از خودِ بدون نقاب نداشته باشی، اما این آزمون کمکت می‌کنه که شروعش کنی.");
+  }
+
+  return result.trim();
+}
+
+function submitForm() {
+  const form = document.getElementById("testForm");
+  let all = "";
+  for (let i = 1; i <= 10; i++) {
+    const field = form[`q${i}`];
+    if (!field) continue;
+    if (field.type === "textarea") {
+      all += field.value.trim() + " ";
+    } else if (field.length !== undefined) {
+      for (let r of field) if (r.checked) all += r.value.trim() + " ";
+    }
+  }
+
+  const result = analyzeResponses(all.trim());
+  document.getElementById("resultBox").innerText = result;
+  document.getElementById("resultBox").style.display = "block";
+  document.getElementById("actionButtons").style.display = "block";
+}
+
+function copyToClipboard() {
+  const txt = document.getElementById("resultBox").innerText;
+  if (!txt) return alert("لطفاً ابتدا نتیجه را ببینید.");
+  navigator.clipboard.writeText(txt).then(() => alert("نتیجه کپی شد!"));
+}
+</script>
 </body>
 </html>
