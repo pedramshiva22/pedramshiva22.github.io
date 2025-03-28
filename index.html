@@ -245,20 +245,41 @@ function analyzeResponses(text) {
 function submitForm() {
   const form = document.getElementById("testForm");
   let all = "";
+  let answered = false;
+
   for (let i = 1; i <= 10; i++) {
     const field = form[`q${i}`];
     if (!field) continue;
+
     if (field.type === "textarea") {
-      all += field.value.trim() + " ";
+      const val = field.value.trim();
+      all += val + " ";
+      if (val.length > 0) answered = true;
     } else if (field.length !== undefined) {
-      for (let r of field) if (r.checked) all += r.value.trim() + " ";
+      for (let r of field) {
+        if (r.checked) {
+          all += r.value.trim() + " ";
+          answered = true;
+        }
+      }
     }
   }
 
+  const resultBox = document.getElementById("resultBox");
+  const actionButtons = document.getElementById("actionButtons");
+
+  if (!answered) {
+    resultBox.innerText = "لطفاً حداقل به یکی از سؤال‌ها پاسخ بده تا تحلیل نمایش داده بشه.";
+    resultBox.style.display = "block";
+    actionButtons.style.display = "none";
+    return;
+  }
+
   const result = analyzeResponses(all.trim());
-  document.getElementById("resultBox").innerText = result;
-  document.getElementById("resultBox").style.display = "block";
-  document.getElementById("actionButtons").style.display = "block";
+  resultBox.innerText = result;
+  resultBox.style.display = "block";
+  actionButtons.style.display = "block";
+}
 }
 
 function copyToClipboard() {
