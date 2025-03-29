@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تست نقاب - نسخه هوشمند</title>
+  <title>تست نقاب - نسخه نهایی</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
     body {
@@ -155,26 +155,30 @@
   </div>
 </div>
 <script>
-const questions = [
-"۱. چه نقاب‌هایی در تعاملات اجتماعی داری؟ چرا از آن‌ها استفاده می‌کنی؟",
-"۲. چه عواملی باعث می‌شن این نقاب‌ها رو به کار ببری؟",
-"۳. اگر برای مدتی نقابت رو کنار بذاری، دیگران تو رو چطور خواهند دید؟",
-"۴. تصویر بدون نقاب تو کدومه؟ (سه‌گزینه‌ای)",
-"۵. چرا این احساس رو داری؟",
-"۶. چطور می‌تونی تعادل سالمی بین نقاب‌هات و خود واقعیت برقرار کنی؟",
-"۷. چه زمانی متوجه شدی که این نقاب(ها) رو داری؟ آیا رویداد خاصی باعث شکل‌گیریش شد؟",
-"۸. چطور فکر می‌کنی این نقاب(ها) بر روابطت با دیگران تأثیر گذاشته؟",
-"۹. آیا تا حالا سعی کردی این نقاب(ها) رو کنار بزاری؟ چه تجربه‌ای داشتی؟",
-"۱۰. فکر می‌کنی نقاب‌هات بیشتر بهت کمک کردن یا مانع رشد و ارتباطاتت بودن؟ چرا؟"
-];
-
-window.onload = () => {
-  document.getElementById("splashScreen").addEventListener("click", () => {
-    document.getElementById("splashScreen").style.display = "none";
-    document.getElementById("introPopup").style.display = "flex";
-  });
+window.onload = function () {
+  const splash = document.getElementById("splashScreen");
+  if (splash) {
+    splash.style.cursor = "pointer";
+    splash.addEventListener("click", function () {
+      splash.style.display = "none";
+      document.getElementById("introPopup").style.display = "flex";
+    });
+  }
 
   const form = document.getElementById("testForm");
+  const questions = [
+    "۱. چه نقاب‌هایی در تعاملات اجتماعی داری؟ چرا از آن‌ها استفاده می‌کنی؟",
+    "۲. چه عواملی باعث می‌شن این نقاب‌ها رو به کار ببری؟",
+    "۳. اگر برای مدتی نقابت رو کنار بذاری، دیگران تو رو چطور خواهند دید؟",
+    "۴. تصویر بدون نقاب تو کدومه؟ (سه‌گزینه‌ای)",
+    "۵. چرا این احساس رو داری؟",
+    "۶. چطور می‌تونی تعادل سالمی بین نقاب‌هات و خود واقعیت برقرار کنی؟",
+    "۷. چه زمانی متوجه شدی که این نقاب(ها) رو داری؟ آیا رویداد خاصی باعث شکل‌گیریش شد؟",
+    "۸. چطور فکر می‌کنی این نقاب(ها) بر روابطت با دیگران تأثیر گذاشته؟",
+    "۹. آیا تا حالا سعی کردی این نقاب(ها) رو کنار بزاری؟ چه تجربه‌ای داشتی؟",
+    "۱۰. فکر می‌کنی نقاب‌هات بیشتر بهت کمک کردن یا مانع رشد و ارتباطاتت بودن؟ چرا؟"
+  ];
+
   questions.forEach((q, i) => {
     const label = document.createElement("label");
     label.textContent = q;
@@ -279,7 +283,6 @@ function submitForm() {
   resultBox.innerText = result;
   resultBox.style.display = "block";
   actionButtons.style.display = "block";
-}
 }
 
 function copyToClipboard() {
